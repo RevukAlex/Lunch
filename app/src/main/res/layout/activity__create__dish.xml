@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.revuk.lunch.Activity_Create_Dish"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="First Course"
+        android:id="@+id/textView_nameMenu" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_nameDish"
+        android:hint="Name dish"
+        android:paddingTop="40dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_description"
+        android:hint="Description"
+        android:paddingTop="40dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Weight"
+        android:id="@+id/editText_weight"
+        android:paddingTop="40dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="210dp"
+            android:layout_height="210dp"
+            android:id="@+id/imageView_dish"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Get pic"
+            android:id="@+id/button_getpic"
+            android:layout_marginRight="10dp"
+            android:layout_alignTop="@+id/imageView_dish"
+            android:layout_alignParentEnd="true"
+            android:onClick="onClick" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create dish"
+            android:id="@+id/button_create_dish"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/imageView_dish"
+            android:onClick="onClick" />
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:id="@+id/button_back"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/button_getpic"
+            android:layout_alignParentStart="false"
+            android:onClick="onClick"
+            android:nestedScrollingEnabled="false" />
+
+    </RelativeLayout>
+
+</LinearLayout>
