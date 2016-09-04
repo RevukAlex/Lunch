@@ -32,9 +32,9 @@ public class Tab_ViewHolder extends RecyclerView.ViewHolder{
         weight = (TextView) itemView.findViewById(R.id.item_weight);
         image = (ImageView) itemView.findViewById(R.id.item_image_dish);
         RootView = itemView.findViewById(R.id.rootView);
-        check = (ImageView) itemView.findViewById(R.id.check);
+        //check = (ImageView) itemView.findViewById(R.id.check);
 
-        check.setVisibility(itemView.INVISIBLE);
+       // check.setVisibility(itemView.INVISIBLE);
 
         //itemView.setOnCreateContextMenuListener(this);
 

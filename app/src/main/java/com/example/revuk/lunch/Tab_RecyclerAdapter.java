@@ -12,6 +12,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class Tab_RecyclerAdapter extends RecyclerView.Adapter<Tab_ViewHolder> {
     private ArrayList<HashMap<String,String>> Menus;
     private OnItemClick onClickListener;
     private String CHECK_MENU = "check";
+    private  String name;
 
 
 
@@ -89,8 +91,11 @@ public class Tab_RecyclerAdapter extends RecyclerView.Adapter<Tab_ViewHolder> {
             @Override
             public void onClick(View v) {
 
+                //name = menu.get(Config.TAG_LUNCH_NAME_DISH);
+
                 if (onClickListener != null) {
                     onClickListener.onItemClick(position);
+                    //Toast.makeText(context, name, Toast.LENGTH_LONG).show();
                 }
 
 

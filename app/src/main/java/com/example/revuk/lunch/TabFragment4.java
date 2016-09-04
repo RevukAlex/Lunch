@@ -55,7 +55,7 @@ public class TabFragment4 extends Fragment {
         TabFragment4 fragment = new TabFragment4();
         fragment.setArguments(args);
       // FragmentTransaction transaction = getFragmentManager();
-     //   transaction.commit();
+     //   transaction.commit();*/
     return fragment;
     }
 
@@ -65,7 +65,7 @@ public class TabFragment4 extends Fragment {
 
       //  newInstance(4);
     }
-
+/*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -93,9 +93,9 @@ public class TabFragment4 extends Fragment {
         String description = bundle.getString("DESCRIPTION");
         String weight = bundle.getString("WEIGHT");
         String image = bundle.getString("IMAGE");*/
-        Bundle args = getArguments();
+   //     Bundle args = getArguments();
 
-        int mPage = args.getInt(FRAGMENT_BUNDLE);
+     //   int mPage = args.getInt(FRAGMENT_BUNDLE);
 
        /* adapter = new Tab_RecyclerAdapter(getActivity(), list);
         recyclerView.setAdapter(adapter);*/
@@ -108,7 +108,7 @@ public class TabFragment4 extends Fragment {
        /* Tabfragment1 a = new Tabfragment1();
         menu = a.test();
         list.add(menu);
-*/
+
         //Toast.makeText(getActivity(),b,Toast.LENGTH_SHORT).show();
 
         Toast.makeText(getActivity(),mPage,Toast.LENGTH_SHORT).show();
@@ -116,7 +116,7 @@ public class TabFragment4 extends Fragment {
         return tab4;
     }
 
-
+*/
 
 
 }

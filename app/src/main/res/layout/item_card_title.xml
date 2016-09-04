@@ -64,13 +64,7 @@
                  android:layout_above="@+id/item_description"
                  android:layout_alignParentEnd="true" />
 
-             <ImageView
-                 android:layout_width="100dp"
-                 android:layout_height="100dp"
-                 android:id="@+id/check"
-                 android:layout_alignParentTop="true"
-                 android:layout_alignEnd="@+id/item_weight"
-                 android:src="@drawable/symbol_check" />
+
 
          </RelativeLayout>
 

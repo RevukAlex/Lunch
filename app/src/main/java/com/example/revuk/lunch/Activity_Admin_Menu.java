@@ -43,7 +43,7 @@ public class Activity_Admin_Menu extends AppCompatActivity{
         tabLayout.addTab(tabLayout.newTab().setText(First));
         tabLayout.addTab(tabLayout.newTab().setText(Main));
         tabLayout.addTab(tabLayout.newTab().setText(Salad));
-        tabLayout.addTab(tabLayout.newTab().setText(Order));
+        //tabLayout.addTab(tabLayout.newTab().setText(Order));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -130,9 +130,8 @@ public class Activity_Admin_Menu extends AppCompatActivity{
 
     public void test(int a){
 
+        //Toast.makeText(this, "gggg", Toast.LENGTH_LONG).show();
 
-        TabFragment4 tab4 = new TabFragment4();
-        tab4.newInstance(a);
        /* android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(tab4, "Order");
         `t.commit();*/

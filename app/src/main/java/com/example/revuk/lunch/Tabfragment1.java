@@ -43,6 +43,7 @@ public class Tabfragment1 extends Fragment {
     private String id;
     int i;
     private String nameMenu = "First";
+    private  String name;
 
 
 
@@ -115,6 +116,8 @@ public class Tabfragment1 extends Fragment {
             public void onItemClick(int position) {
 
                 i = position;
+                confirmorder();
+
 
 
                 /*TabFragment4 t = new TabFragment4();
@@ -151,17 +154,37 @@ public class Tabfragment1 extends Fragment {
                 args.putString("WEIGHT", menu.get(Config.TAG_LUNCH_WEIGHT));
                 args.putString("IMAGE", menu.get(Config.TAG_LUNCH_IMAGE));*/
 
-
-
-
-
-
-
             }
         });
 
 
 
+    }
+
+    private void confirmorder(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setMessage("Would you like order this?");
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                HashMap<String, String> choice1 = list.get(i);
+                name = choice1.get(Config.TAG_LUNCH_NAME_DISH);
+
+                Toast.makeText(getActivity(), name, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getActivity(), "no", Toast.LENGTH_LONG).show();
+
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 
