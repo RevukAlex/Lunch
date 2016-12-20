@@ -1,0 +1,269 @@
+lunch_connect.php
+<?php
+
+        //Defining Constants
+        define('HOST','localhost');
+        define('USER','root');
+        define('PASS','revuk');
+        define('DB','Lunch');
+
+        //Connecting to Database
+        $con = mysqli_connect(HOST,USER,PASS,DB) or die('Unable to Connect');
+?>
+
+
+
+
+lunch_check.php
+<?php
+ //Getting Id
+ $device_id = $_GET['device_id'];
+
+ //Importing database
+ require_once('lunch_connect.php');
+
+ //Creating sql query
+ $sql = "SELECT id  FROM user WHERE device_id = '$device_id'";
+
+ $data = mysqli_query($con,$sql);
+ $result = mysqli_num_rows($data);
+
+// echo "$device_id+$result";
+ if ($result == 0) {
+    // Proceed with the $result
+ echo 'No';
+ } else {
+    // Show an error message
+ echo 'Ok';
+}
+ //closing connection
+ mysqli_close($con);
+?>
+
+
+
+
+lunch_add_dish.php
+<?php
+
+ if($_SERVER['REQUEST_METHOD']=='POST'){
+  $nameMenu = $_POST['nameMenu'];
+  $nameDish = $_POST['nameDish'];
+  $description = $_POST['description'];
+  $weight = $_POST['weight'];
+  $image = $_POST['image'];
+
+
+ require_once('lunch_connect.php');
+
+ $sql = "INSERT INTO allmenu (nameMenu, nameDish, description, weight, image) VALUES (?,?,?,?,?)";
+
+// echo $nameMenu;
+ $stmt = mysqli_prepare($con,$sql);
+
+ mysqli_stmt_bind_param($stmt,"sssss",$nameMenu, $nameDish, $description, $weight, $image);
+ mysqli_stmt_execute($stmt);
+
+ $check = mysqli_stmt_affected_rows($stmt);
+
+ if($check == 1){
+ echo "Image Uploaded Successfully";
+ }else{
+ echo "Error Uploading Image";
+ }
+ mysqli_close($con);
+ }else{
+ echo "Error";
+ }
+?>
+
+
+
+lunch_add_dayMenu.php
+<?php
+
+        //Getting Id
+        $id = $_GET['id'];
+
+        //Importing database
+        require_once('lunch_connect.php');
+
+        //Creating sql query
+        $sql = "INSERT INTO daymenu SELECT * FROM allmenu WHERE id=$id;";
+
+        //Deleting record in database
+        if(mysqli_query($con,$sql)){
+                echo 'Copy Successfully';
+        }else{
+                echo 'Could Not Copy menu, Try Again';
+        }
+
+        //closing connection
+        mysqli_close($con);
+
+
+?>
+
+
+
+luncy_getMenu.php
+<?php
+
+//Getting the requested id
+        $nameMenu = $_GET['id'];
+
+//echo $_GET['id'];
+
+
+        //Importing Database Script
+        require_once('lunch_connect.php');
+
+        //Creating sql query
+        $sql = "SELECT * FROM allmenu WHERE nameMenu = '$nameMenu'";
+
+//echo "dfdfdf";
+
+        //getting result
+        $r = mysqli_query($con,$sql);
+
+        //creating a blank array
+        $result = array();
+
+        //looping through all the records fetched
+        while($row = mysqli_fetch_array($r)){
+
+                //Pushing name and id in the blank array created
+                array_push($result,array(
+                        "id" => $row['id'],
+                        "nameDish" =>$row['nameDish'],
+                        "description"=>$row['description'],
+                        "weight"=>$row['weight'],
+                        "image"=>$row['image']
+                ));
+        }
+
+        //Displaying the array in json format
+        echo json_encode(array('result'=>$result));
+
+        mysqli_close($con);
+
+
+?>
+
+
+
+
+lunch_getdayMenu.php
+<?php
+
+//Getting the requested id
+        $nameMenu = $_GET['id'];
+
+//echo $_GET['id'];
+
+
+        //Importing Database Script
+        require_once('lunch_connect.php');
+
+        //Creating sql query
+        $sql = "SELECT * FROM daymenu WHERE nameMenu = '$nameMenu'";
+
+//echo "dfdfdf";
+
+        //getting result
+        $r = mysqli_query($con,$sql);
+
+        //creating a blank array
+        $result = array();
+
+        //looping through all the records fetched
+        while($row = mysqli_fetch_array($r)){
+
+                //Pushing name and id in the blank array created
+                array_push($result,array(
+                        "id" => $row['id'],
+                        "nameDish" =>$row['nameDish'],
+                        "description"=>$row['description'],
+                        "weight"=>$row['weight'],
+                        "image"=>$row['image']
+                ));
+        }
+
+        //Displaying the array in json format
+        echo json_encode(array('result'=>$result));
+
+        mysqli_close($con);
+
+?>
+
+
+lunch_deleteMenu.php
+<?php
+        //Getting Id
+        $id = $_GET['id'];
+
+        //Importing database
+        require_once('lunch_connect.php');
+
+        //Creating sql query
+        $sql = "DELETE FROM allmenu WHERE id=$id;";
+
+        //Deleting record in database
+        if(mysqli_query($con,$sql)){
+                echo 'User Deleted Successfully';
+        }else{
+                echo 'Could Not Delete menu, Try Again';
+        }
+
+        //closing connection
+        mysqli_close($con);
+?>
+
+
+
+lunch_deletedayMenu.php
+<?php
+        //Getting Id
+        $id = $_GET['id'];
+
+        //Importing database
+        require_once('lunch_connect.php');
+
+        //Creating sql query
+        $sql = "DELETE FROM daymenu WHERE id=$id;";
+
+        //Deleting record in database
+        if(mysqli_query($con,$sql)){
+                echo 'Menu Deleted Successfully';
+        }else{
+                echo 'Could Not Delete menu, Try Again';
+        }
+
+        //closing connection
+        mysqli_close($con);
+?>
+
+
+<?php
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+
+                //Getting values
+                $name = $_POST['name'];
+                $device_id = $_POST['device_id'];
+
+                //Creating an sql query
+                $sql = "INSERT INTO user (name,device_id) VALUES ('$name','$device_id')";
+
+                //Importing our db connection script
+                require_once('lunch_connect.php');
+
+                //Executing query to database
+                if(mysqli_query($con,$sql)){
+                        echo 'User have added Successfully';
+                }else{
+                        echo 'Could Not Add User';
+                }
+//Closing the database
+                mysqli_close($con);
+        }
+?>
