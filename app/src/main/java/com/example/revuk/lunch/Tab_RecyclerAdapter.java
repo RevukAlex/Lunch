@@ -50,7 +50,7 @@ public class Tab_RecyclerAdapter extends RecyclerView.Adapter<Tab_ViewHolder> {
     public Tab_ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_card_title, null);
+        View view = inflater.inflate(R.layout.item_card_title, parent,false);
         Tab_ViewHolder viewHolder = new Tab_ViewHolder(view);
         return viewHolder;
     }
@@ -67,7 +67,7 @@ public class Tab_RecyclerAdapter extends RecyclerView.Adapter<Tab_ViewHolder> {
 
         //реагування на кліки
 
-        // CreateViewHolder.RootView.setOnLongClickListener(new View.OnLongClickListener() {
+
         holder.RootView.setOnLongClickListener(new View.OnLongClickListener() {
             //довгі кліки
             @Override
@@ -91,11 +91,11 @@ public class Tab_RecyclerAdapter extends RecyclerView.Adapter<Tab_ViewHolder> {
             @Override
             public void onClick(View v) {
 
-                //name = menu.get(Config.TAG_LUNCH_NAME_DISH);
+
 
                 if (onClickListener != null) {
                     onClickListener.onItemClick(position);
-                    //Toast.makeText(context, name, Toast.LENGTH_LONG).show();
+
                 }
 
 
@@ -105,15 +105,7 @@ public class Tab_RecyclerAdapter extends RecyclerView.Adapter<Tab_ViewHolder> {
 
 
 
-               /*if(menu.  == ){
-                    holder.check.setVisibility(View.VISIBLE);
 
-               }*/
-
-
-                /*if (onClickListener != null) {
-                    onClickListener.onItemClick(position);
-                }*/
 
             }
 

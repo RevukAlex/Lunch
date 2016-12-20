@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class Activity_Admin_Menu extends AppCompatActivity{
@@ -23,9 +24,19 @@ public class Activity_Admin_Menu extends AppCompatActivity{
     String Salad = "Salad";
     String Order = "Order";
     int tabItem;
-    PagerAdapter adapter;
+    PagerAdapter adapter0;
+   Order_dish order_dish;
+    String first;
+    String second;
+    String third;
+    String name;
+    String device_id;
+    User user;
+
 
     String b;
+
+
 
 
         @Override
@@ -35,6 +46,12 @@ public class Activity_Admin_Menu extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+            order_dish = new Order_dish(first,second,third,name,device_id);
+            Intent intent = getIntent();
+            user = intent.getParcelableExtra("User");
+            order_dish.Name = user.Name;
+            order_dish.Device_ID = user.Device_id;
+
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -43,13 +60,12 @@ public class Activity_Admin_Menu extends AppCompatActivity{
         tabLayout.addTab(tabLayout.newTab().setText(First));
         tabLayout.addTab(tabLayout.newTab().setText(Main));
         tabLayout.addTab(tabLayout.newTab().setText(Salad));
-        //tabLayout.addTab(tabLayout.newTab().setText(Order));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        adapter = new PagerAdapter
+        adapter0 = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(adapter0);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
 //перелистування
@@ -79,7 +95,20 @@ public class Activity_Admin_Menu extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem setting = menu.findItem(R.id.action_settings);
+        MenuItem add = menu.findItem(R.id.action_add);
+
+        if(user.Name.equals("Admin")){
+
+
+        } else {
+        setting.setVisible(false);
+        add.setVisible(false);
+        }
         return true;
+
+
+
     }
 
     @Override
@@ -118,8 +147,18 @@ public class Activity_Admin_Menu extends AppCompatActivity{
                 break;
             case R.id.action_list:
 
-                //test();
+                if(user.Name.equals("Admin")){
 
+                    Intent intent3 = new Intent(this, Orders.class);
+                    startActivity(intent3);
+
+
+                } else {
+
+
+                Intent intent2 = new Intent(this, Order.class);
+                intent2.putExtra("Order", order_dish);
+                startActivity(intent2);}
                 break;
         }
 
@@ -128,21 +167,16 @@ public class Activity_Admin_Menu extends AppCompatActivity{
     }
 
 
-    public void test(int a){
-
-        //Toast.makeText(this, "gggg", Toast.LENGTH_LONG).show();
-
-       /* android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(tab4, "Order");
-        `t.commit();*/
-
-        //FragmentManager fm = getFragmentManager();
-        //tab4 = fm.findFragmentByTag("Order");
-        //tab4.act = this;*/
-      //  tab4.fragmentCommunication("hghgjh");
-       //return "hy";
-
+    public void Order1(String a){
+        order_dish.First = a;
     }
+    public void Order2(String b){
+        order_dish.Second = b;
+    }
+    public void Order3(String c){
+        order_dish.Third = c;
+    }
+
 
 
 }

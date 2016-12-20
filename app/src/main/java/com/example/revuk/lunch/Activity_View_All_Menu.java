@@ -44,7 +44,6 @@ public class Activity_View_All_Menu extends AppCompatActivity {
         Intent intent = getIntent();
         nameMenu = intent.getStringExtra(Config.KEY_TAB);
 
-
         getJSON();
     }
 
@@ -65,7 +64,6 @@ public class Activity_View_All_Menu extends AppCompatActivity {
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
                 String id = jo.getString(Config.TAG_ID);
-         // String nameMenu = jo.getString(Config.TAG_LUNCH_NAME_MENU);
                 String nameDish = jo.getString(Config.TAG_LUNCH_NAME_DISH);
                 String description = jo.getString(Config.TAG_LUNCH_DESCRIPTION);
                 String weight = jo.getString(Config.TAG_LUNCH_WEIGHT);
@@ -73,13 +71,12 @@ public class Activity_View_All_Menu extends AppCompatActivity {
 
                 menu = new HashMap<>();
                 menu.put(Config.TAG_ID,id);
-               // menu.put(Config.TAG_LUNCH_NAME_MENU, nameMenu);
                 menu.put(Config.TAG_LUNCH_NAME_DISH, nameDish);
                 menu.put(Config.TAG_LUNCH_DESCRIPTION, description);
                 menu.put(Config.TAG_LUNCH_WEIGHT, weight);
                 menu.put(Config.TAG_LUNCH_IMAGE, image);
                 list.add(menu);
-               // Toast.makeText(this,image,Toast.LENGTH_SHORT).show();
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -220,6 +217,7 @@ public class Activity_View_All_Menu extends AppCompatActivity {
         if (item.getTitle() == "Add to lunch menu") {
             HashMap<String,String> fo = list.get(i);
             id = fo.get(Config.TAG_ID);
+
 
             addDayMenu ();
 

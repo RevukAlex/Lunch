@@ -60,7 +60,7 @@ public class Activity_Create_Dish extends AppCompatActivity {
     switch (v.getId()) {
         case R.id.button_getpic:
 //кнопка викликати меню для вибору картинки
-            Intent intent = new Intent(Intent.ACTION_PICK);
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
             startActivityForResult(intent, OPEN_GALLERY);
             break;
@@ -148,7 +148,7 @@ public class Activity_Create_Dish extends AppCompatActivity {
                 String res = rh.sendPostRequest(Config.URL_ADD_DISH, params);
                 return res;
 
-                //return null;
+
             }
         }
         addMenu addM = new addMenu();

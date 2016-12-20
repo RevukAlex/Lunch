@@ -26,6 +26,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by Revuk on 29-Jan-16.
  */
@@ -37,37 +39,45 @@ public class Tabfragment1 extends Fragment {
     private String JSON_STRING;
     private HashMap<String,String> menu;
     private ArrayList<HashMap<String,String>> list;
-    private Tab_RecyclerAdapter adapter;
+
     Tab_ViewHolder holder;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView1;
     private String id;
     int i;
     private String nameMenu = "First";
-    private  String name;
+    private   String name;
+    View tab1;
+
+
+
 
 
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        getJSON();
-
         super.onCreate(savedInstanceState);
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        //Toast.makeText(getContext(),"tag1",Toast.LENGTH_SHORT).show();
-       View tab1 = inflater.inflate(R.layout.tab_fragment_1, container, false);
-//        ((TextView)tab1.findViewById(R.id.textView)).setText("abra-cadabra");
+
+       tab1 = inflater.inflate(R.layout.tab_fragment_1, container, false);
+
+        getJSON();
 
 
-    recyclerView = (RecyclerView) tab1.findViewById(R.id.recyclerview_tab_1);
-    final GridLayoutManager gridLayout = new GridLayoutManager(getActivity(),2);
-    recyclerView.setLayoutManager(gridLayout);
-        registerForContextMenu(recyclerView);
+    recyclerView1 = (RecyclerView) tab1.findViewById(R.id.recyclerview_tab_1);
+
+    GridLayoutManager gridLayout1 = new GridLayoutManager(Tabfragment1.super.getContext(),2);
+    recyclerView1.setLayoutManager(gridLayout1);
+        registerForContextMenu(recyclerView1);
+
 
 
 
@@ -87,7 +97,7 @@ public class Tabfragment1 extends Fragment {
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
                 String id = jo.getString(Config.TAG_ID);
-                // String nameMenu = jo.getString(Config.TAG_LUNCH_NAME_MENU);
+
                 String nameDish = jo.getString(Config.TAG_LUNCH_NAME_DISH);
                 String description = jo.getString(Config.TAG_LUNCH_DESCRIPTION);
                 String weight = jo.getString(Config.TAG_LUNCH_WEIGHT);
@@ -101,16 +111,17 @@ public class Tabfragment1 extends Fragment {
                 menu.put(Config.TAG_LUNCH_WEIGHT, weight);
                 menu.put(Config.TAG_LUNCH_IMAGE, image);
                 list.add(menu);
-                // Toast.makeText(this,image,Toast.LENGTH_SHORT).show();
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        adapter = new Tab_RecyclerAdapter(getActivity(), list);
-        recyclerView.setAdapter(adapter);
 
+
+        Tab_RecyclerAdapter adapter1 = new Tab_RecyclerAdapter(getActivity().getApplicationContext(), list);
+        recyclerView1.setAdapter(adapter1);
         //реагуавння на кліки
-        adapter.setOnItemClickListener(new Tab_RecyclerAdapter.OnItemClick() {
+        adapter1.setOnItemClickListener(new Tab_RecyclerAdapter.OnItemClick() {
 
             @Override
             public void onItemClick(int position) {
@@ -120,39 +131,7 @@ public class Tabfragment1 extends Fragment {
 
 
 
-                /*TabFragment4 t = new TabFragment4();
-                Bundle bundle = new Bundle();
-                bundle.putString(FRAGMENT_BUNDLE, "dfdg");
-                t.setArguments(bundle);*/
 
-                Activity_Admin_Menu a = (Activity_Admin_Menu)getActivity();
-                a.test(5);
-                //test();
-
-                /*TabFragment4 fragmentB = (TabFragment4)getActivity()
-                        .getSupportFragmentManager()
-                        .findFragmentByTag("Order");
-
-                fragmentB.fragmentCommunication("textPassToB");
-
-                Toast.makeText(getActivity(),
-                        "text sent to Fragment B:\n ",
-                        Toast.LENGTH_LONG).show();*/
-
-
-               /* HashMap<String, String> tt = list.get(i);
-
-                Bundle args = new Bundle();
-
-                args.putSerializable("hashmap",tt);*/
-
-
-               /* args.putString("ID",menu.get(Config.TAG_ID));
-                args.putString("NAMEMENU",menu.get(Config.TAG_LUNCH_NAME_MENU));
-                args.putString("NAMEDISH",menu.get(Config.TAG_LUNCH_NAME_DISH));
-                args.putString("DESCRIPTION", menu.get(Config.TAG_LUNCH_DESCRIPTION));
-                args.putString("WEIGHT", menu.get(Config.TAG_LUNCH_WEIGHT));
-                args.putString("IMAGE", menu.get(Config.TAG_LUNCH_IMAGE));*/
 
             }
         });
@@ -170,14 +149,16 @@ public class Tabfragment1 extends Fragment {
                 HashMap<String, String> choice1 = list.get(i);
                 name = choice1.get(Config.TAG_LUNCH_NAME_DISH);
 
-                Toast.makeText(getActivity(), name, Toast.LENGTH_LONG).show();
+                Activity_Admin_Menu a = (Activity_Admin_Menu)getActivity();
+                a.Order1(name);
+
             }
         });
 
         alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(), "no", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), "no", Toast.LENGTH_LONG).show();
 
 
             }
@@ -196,8 +177,7 @@ public class Tabfragment1 extends Fragment {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                // Toast.makeText(Activity_View_All_Menu.this,nameMenu, Toast.LENGTH_LONG).show();
-                //loading = ProgressDialog.show(getActivity(),"Fetching Data","Wait...",false,false);
+
             }
 
             @Override
@@ -276,20 +256,7 @@ public class Tabfragment1 extends Fragment {
     }
 
 
-   /* @Override
-    public boolean onContextItemSelected(MenuItem item) {
 
-        if (item.getTitle() == "Delete") {
-
-            HashMap<String, String> fo = list.get(i);
-            id = fo.get(Config.TAG_ID);
-
-            confirmDelete();
-
-
-        }
-        return super.onContextItemSelected(item);
-    }*/
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,ContextMenu.ContextMenuInfo menuInfo) {

@@ -64,7 +64,7 @@ public class AllMenu_RecyclerAdapter extends RecyclerView.Adapter<AllMenu_ViewHo
 
         //реагування на кліки
 
-        // CreateViewHolder.RootView.setOnLongClickListener(new View.OnLongClickListener() {
+
         holder.RootView.setOnLongClickListener(new View.OnLongClickListener() {
             //довгі кліки
             @Override

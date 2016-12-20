@@ -30,7 +30,7 @@
                   android:layout_width="180dp"
                   android:layout_height="180dp"
                   android:contentDescription="@string/action_settings"
-                  android:src="@drawable/newyork"
+
                   android:scaleType="centerCrop"
                   android:layout_alignParentEnd="false"
                   android:layout_centerHorizontal="true" />

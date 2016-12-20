@@ -34,30 +34,30 @@ public class TabFragment3 extends Fragment {
     String JSON_STRING;
     HashMap<String,String> menu;
     ArrayList<HashMap<String,String>> list;
-    Tab_RecyclerAdapter adapter;
-    RecyclerView recyclerView;
+
+    RecyclerView recyclerView3;
     int i;
     String nameMenu = "Salad";
     private String id;
+    private   String name;
+    View tab3;
 
-    public TabFragment3() {
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        getJSON();
+
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-    View tab3 = inflater.inflate(R.layout.tab_fragment_3, container, false);
-    recyclerView = (RecyclerView) tab3.findViewById(R.id.recyclerview_tab_3);
-    final GridLayoutManager gridLayout = new GridLayoutManager(getActivity(),2);
-    recyclerView.setLayoutManager(gridLayout);
-    registerForContextMenu(recyclerView);
+        getJSON();
+    tab3 = inflater.inflate(R.layout.tab_fragment_3, container, false);
+    recyclerView3 = (RecyclerView) tab3.findViewById(R.id.recyclerview_tab_3);
+    final GridLayoutManager gridLayout3 = new GridLayoutManager(getActivity(),2);
+    recyclerView3.setLayoutManager(gridLayout3);
+    registerForContextMenu(recyclerView3);
 
 
 
@@ -77,7 +77,7 @@ public class TabFragment3 extends Fragment {
             for (int i = 0; i < result.length(); i++) {
                 JSONObject jo = result.getJSONObject(i);
                 String id = jo.getString(Config.TAG_ID);
-                // String nameMenu = jo.getString(Config.TAG_LUNCH_NAME_MENU);
+
                 String nameDish = jo.getString(Config.TAG_LUNCH_NAME_DISH);
                 String description = jo.getString(Config.TAG_LUNCH_DESCRIPTION);
                 String weight = jo.getString(Config.TAG_LUNCH_WEIGHT);
@@ -85,33 +85,60 @@ public class TabFragment3 extends Fragment {
 
                 menu = new HashMap<>();
                 menu.put(Config.TAG_ID,id);
-                // menu.put(Config.TAG_LUNCH_NAME_MENU, nameMenu);
+
                 menu.put(Config.TAG_LUNCH_NAME_DISH, nameDish);
                 menu.put(Config.TAG_LUNCH_DESCRIPTION, description);
                 menu.put(Config.TAG_LUNCH_WEIGHT, weight);
                 menu.put(Config.TAG_LUNCH_IMAGE, image);
                 list.add(menu);
-                // Toast.makeText(this,image,Toast.LENGTH_SHORT).show();
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        adapter = new Tab_RecyclerAdapter(getActivity(), list);
-        recyclerView.setAdapter(adapter);
+        Tab_RecyclerAdapter adapter3 = new Tab_RecyclerAdapter(getActivity(), list);
+        recyclerView3.setAdapter(adapter3);
 
         //реагуавння на кліки
-        adapter.setOnItemClickListener(new Tab_RecyclerAdapter.OnItemClick() {
+        adapter3.setOnItemClickListener(new Tab_RecyclerAdapter.OnItemClick() {
 
             @Override
             public void onItemClick(int position) {
                 i = position;
-                // Toast.makeText(getActivity(), String.valueOf(i),Toast.LENGTH_SHORT).show();
-                /*HashMap<String, String> fo = list.get(i);
-                id = fo.get(Config.TAG_ID);*/
+                confirmorder();
+
             }
         });
 
 
+    }
+
+    private void confirmorder(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setMessage("Would you like order this?");
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                HashMap<String, String> choice1 = list.get(i);
+                name = choice1.get(Config.TAG_LUNCH_NAME_DISH);
+
+                Activity_Admin_Menu a = (Activity_Admin_Menu)getActivity();
+                a.Order3(name);
+
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 
@@ -123,8 +150,7 @@ public class TabFragment3 extends Fragment {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                // Toast.makeText(Activity_View_All_Menu.this,nameMenu, Toast.LENGTH_LONG).show();
-                //loading = ProgressDialog.show(getActivity(),"Fetching Data","Wait...",false,false);
+
             }
 
             @Override
@@ -132,7 +158,7 @@ public class TabFragment3 extends Fragment {
                 super.onPostExecute(s);
                // loading.dismiss();
                 JSON_STRING = s;
-                //Toast.makeText(Activity_View_All_Menu.this,s, Toast.LENGTH_LONG).show();
+
                 showMenu();
             }
 
@@ -201,34 +227,17 @@ public class TabFragment3 extends Fragment {
     }
 
 
-    /*@Override
-    public boolean onContextItemSelected(MenuItem item) {
 
-
-
-            if (item.getTitle() == "Delete") {
-
-            HashMap<String, String> fo = list.get(i);
-            id = fo.get(Config.TAG_ID);
-                if(fo.get(Config.TAG_LUNCH_NAME_MENU) == nameMenu) {
-
-                    confirmDelete();
-                }
-
-            }
-
-        return super.onContextItemSelected(item);
-    }*/
 
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        //getActivity().getMenuInflater().inflate(R.menu.context,menu);
+
 
         menu.setHeaderTitle("Select The Action");
-       // menu.add(0, v.getId(), 0, "Call");//groupId, itemId, order, title
+
         menu.add(TAB3_GROUP_ID, v.getId(), 0, "Delete");
     }
 
@@ -241,7 +250,7 @@ public class TabFragment3 extends Fragment {
             id = fo.get(Config.TAG_ID);
             confirmDelete();
         }
-          //  Toast.makeText(getActivity(), id, Toast.LENGTH_LONG).show();
+
         }
 
 
